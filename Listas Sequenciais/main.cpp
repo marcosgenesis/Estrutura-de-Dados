@@ -63,6 +63,9 @@ int main() {
         else
           cout << elemento << endl;
         break;
+      case 'p':
+        v.print();
+        break;
     }
   }
 

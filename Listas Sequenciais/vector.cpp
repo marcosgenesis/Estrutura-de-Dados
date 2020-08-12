@@ -43,7 +43,6 @@ void vector::inserir(int elemento) {
     vetorDuplicado[capacidade] = elemento;
     delete[] vetor;
     vetor = vetorDuplicado;
-    remover(0);
     tamanho++;
     capacidade *= 2;
     // print();
@@ -88,8 +87,8 @@ bool vector::pertence(int elemento) {
 // "indice". NOTE Necessário preservar a ordem relativa dos demais elementos.
 void vector::inserir_em(unsigned int indice, int elemento) {
   // TODO Implementação.
-  if (vetor[indice] == 0) {
-    vetor[indice] = elemento;
+  if (tamanho == capacidade) {
+    return;
   } else {
     tamanho++;
     for (unsigned int j = tamanho - 1; j > indice; j--) {
@@ -98,6 +97,7 @@ void vector::inserir_em(unsigned int indice, int elemento) {
     }
     vetor[indice] = elemento;
   }
+
   // print();
 }
 
@@ -112,17 +112,14 @@ bool vector::remover_de(unsigned int indice) {
     vetor[i - 1] = vetor[i];
   }
   tamanho--;
+  return true;
 }
 
 // Retornar o valor associado ao índice "indice".
 // NOTE Quando o índice for inválido, retornar `std::numeric_limits<int>::max()`
 //      (forma de obter o maior valor representável).
 int vector::obter_elemento_em(unsigned int indice) {
-  if (tamanho == 0) {
-    return std::numeric_limits<int>::max();
-  }
-
-  if (indice < 0 || indice > tamanho) {
+    if (indice < 0 || indice >= tamanho || tamanho == 0) {
     return std::numeric_limits<int>::max();
   } else {
     return vetor[indice];
