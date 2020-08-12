@@ -33,7 +33,6 @@ void vector::inserir(int elemento) {
   if (tamanho < capacidade) {
     vetor[tamanho] = elemento;
     tamanho++;
-    remover(0);
     // print();
   } else {
     // TODO Realocar o vetor e inserir "elemento"
