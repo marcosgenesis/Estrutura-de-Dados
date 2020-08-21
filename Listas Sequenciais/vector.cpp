@@ -119,7 +119,7 @@ bool vector::remover_de(unsigned int indice) {
 // NOTE Quando o índice for inválido, retornar `std::numeric_limits<int>::max()`
 //      (forma de obter o maior valor representável).
 int vector::obter_elemento_em(unsigned int indice) {
-    if (indice < 0 || indice >= tamanho || tamanho == 0) {
+  if (indice < 0 || indice >= tamanho || tamanho == 0) {
     return std::numeric_limits<int>::max();
   } else {
     return vetor[indice];
