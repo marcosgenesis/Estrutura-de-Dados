@@ -46,26 +46,23 @@ bool set::inserir(int elemento) {
 // Retornar indicativo de sucesso da remoção.
 // NOTE Necessário preservar a ordem relativa dos que restarem.
 bool set::remover(int elemento) {
-  if (pertence(elemento)) {
-    for (unsigned int i = 0; i < tamanho; i++) {
-      if (vetor[i] == elemento) {
-        for (unsigned int j = i; j < tamanho; j++) {
-          int aux = vetor[j];
-          vetor[j] = vetor[j + 1];
-          vetor[j + 1] = aux;
-        }
-        tamanho--;
-        return true;
+  for (unsigned int i = 0; i < tamanho; i++) {
+    if (vetor[i] == elemento) {
+      for (unsigned int j = i; j < tamanho; j++) {
+        int aux = vetor[j];
+        vetor[j] = vetor[j + 1];
+        vetor[j + 1] = aux;
       }
+      tamanho--;
+      return true;
     }
-  } else {
-    return false;
   }
+  return false;
 }
 
 // Determinar se "elemento" é um dos elementos ainda na coleção.
 bool set::pertence(int elemento) const {
-  if (tamanho == 0) {
+  if (this->tamanho == 0) {
     return false;
   }
 
@@ -82,8 +79,7 @@ bool set::pertence(int elemento) const {
 // Tornar o próprio conjunto (`this`) o resultado de sua união com o outro
 // informado.
 void set::uniao_com(set const &conjunto) {
-  // TODO Implementação.
-  for (unsigned l = 0; l < conjunto.tamanho; l++) {
+  for (unsigned int l = 0; l < conjunto.tamanho; l++) {
     if (!pertence(conjunto.vetor[l])) {
       inserir(conjunto.vetor[l]);
     }
@@ -93,18 +89,34 @@ void set::uniao_com(set const &conjunto) {
 // Tornar o próprio conjunto (`this`) o resultado de sua intersecção com o outro
 // informado.
 void set::intersecao_com(set const &conjunto) {
-  for (unsigned l = 0; l < conjunto.tamanho; l++) {
-    if (!pertence(conjunto.vetor[l])) {
-      remover(conjunto.vetor[l]);
+  if (conjunto.tamanho == 0) {
+    tamanho = 0;
+  } else {
+    int *aux = new int[tamanho];
+    for (unsigned int i = 0; i < tamanho; i++) {
+      if (conjunto.pertence(vetor[i])) {
+        aux[i] = vetor[i];
+      }
+    }
+    for (unsigned int i = 0; i < tamanho; i++) {
+      vetor[i] = aux[i];
     }
   }
 }
 
 // Testar se este conjunto (`this`) está contido no outro informado.
 bool set::esta_contido_em(set const &conjunto) const {
+  if (tamanho == 0) {
+    return true;
+  }
+
   bool estaContido = false;
-  for (unsigned l = 0; l < conjunto.tamanho; l++) {
-    pertence(conjunto.vetor[l]) ? estaContido = true : estaContido = false;
+  for (unsigned l = 0; l < tamanho; l++) {
+    if (conjunto.pertence(vetor[l])) {
+      estaContido = true;
+    } else {
+      return false;
+    }
   }
   return estaContido;
 }
