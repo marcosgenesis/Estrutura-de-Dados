@@ -34,24 +34,19 @@ void ordered_list::inserir(int elemento) {
 
     for (int x = 0; x < this->tamanho; x++) {
       for (int y = 0; y < this->tamanho - 1; y++) {
-        if (obter_no_em(y)->valor < obter_no_em(y + 1)->valor) {
+        if (obter_no_em(y)->valor > obter_no_em(y + 1)->valor) {
           int aux = obter_no_em(y)->valor;
           obter_no_em(y)->valor = obter_no_em(y + 1)->valor;
           obter_no_em(y + 1)->valor = aux;
         }
       }
     }
-
-    for (unsigned int i = 0; i < tamanho; i++) {
-      std::cout << obter_elemento_em(i) << " ";
-    }
   }
 };
-/
 
-    // Remover "elemento" da coleção.
-    // Retornar indicativo de sucesso da remoção.
-    bool ordered_list::remover(int elemento) {
+// Remover "elemento" da coleção.
+// Retornar indicativo de sucesso da remoção.
+bool ordered_list::remover(int elemento) {
   if (this->tamanho == 0 || !pertence(elemento)) {
     return false;
   } else {
