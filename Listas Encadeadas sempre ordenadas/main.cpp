@@ -9,9 +9,9 @@ int main() {
   unsigned int capacidade;
   unsigned int comandos;
 
-  cin >> capacidade >> comandos;
+  cin >> comandos;
 
-  ordered_list v(capacidade);
+  ordered_list v;
 
   while (comandos-- > 0) {
     char acao;

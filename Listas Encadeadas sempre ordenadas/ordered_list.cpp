@@ -4,7 +4,7 @@
 #include <limits>
 
 // Construir lista vazia, mas com capacidade máxima informada.
-ordered_list::ordered_list(unsigned int capacidade) {
+ordered_list::ordered_list() {
   this->primeiro = nullptr;
   this->tamanho = 0;
 }
@@ -19,9 +19,6 @@ ordered_list::ordered_list(unsigned int tamanho, int inicial) {
   }
 }
 
-// --- Métodos de "Coleção" ---
-
-// Inserir "elemento" na coleção. Sempre deve executar a inserção.
 void ordered_list::inserir(int elemento) {
   if (tamanho == 0) {
     no_encadeado* novo_no = new no_encadeado(elemento);
@@ -29,19 +26,32 @@ void ordered_list::inserir(int elemento) {
     this->tamanho++;
   } else {
     no_encadeado* anterior = obter_no_em(tamanho - 1);
-    if (elemento < anterior->valor) {
-      no_encadeado* novo_no = new no_encadeado(elemento, anterior);
-    } else {
-      no_encadeado* novo_no = new no_encadeado(elemento);
-      anterior->proximo = novo_no;
-      this->tamanho++;
+    no_encadeado* novo_no = new no_encadeado(elemento);
+    anterior->proximo = novo_no;
+    this->tamanho++;
+    // 5 4 3
+    no_encadeado* no = this->primeiro;
+
+    for (int x = 0; x < this->tamanho; x++) {
+      for (int y = 0; y < this->tamanho - 1; y++) {
+        if (obter_no_em(y)->valor < obter_no_em(y + 1)->valor) {
+          int aux = obter_no_em(y)->valor;
+          obter_no_em(y)->valor = obter_no_em(y + 1)->valor;
+          obter_no_em(y + 1)->valor = aux;
+        }
+      }
+    }
+
+    for (unsigned int i = 0; i < tamanho; i++) {
+      std::cout << obter_elemento_em(i) << " ";
     }
   }
-}
+};
+/
 
-// Remover "elemento" da coleção.
-// Retornar indicativo de sucesso da remoção.
-bool ordered_list::remover(int elemento) {
+    // Remover "elemento" da coleção.
+    // Retornar indicativo de sucesso da remoção.
+    bool ordered_list::remover(int elemento) {
   if (this->tamanho == 0 || !pertence(elemento)) {
     return false;
   } else {

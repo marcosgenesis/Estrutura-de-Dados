@@ -18,7 +18,6 @@ class ordered_list {
  public:
   // Construtores
   ordered_list();
-  ordered_list(unsigned int capacidade);
   ordered_list(unsigned int tamanho, int inicial);
 
   // Métodos de "Coleção"
@@ -26,7 +25,7 @@ class ordered_list {
   bool remover(int elemento);
   bool pertence(int elemento);
 
-  unsigned int obter_tamanho() { return tamanho; }
+  unsigned int obter_tamanho() { return tamanho; };
 
   // Métodos de "Lista"
   bool remover_de(unsigned int indice);
